@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Results</title>
+    <style>
+        .high {
+            border: 2px solid red;
+            margin: 10px;
+            padding: 10px;
+        }
+        .medium {
+            border: 2px solid orange;
+            margin: 10px;
+            padding: 10px;
+        }
+        .low {
+            border: 2px solid blue;
+            margin: 10px;
+            padding: 10px;
+        }
+        .informational {
+            border: 2px solid grey;
+            margin: 10px;
+            padding: 10px;
+        }
+        h2 {
+            margin: 0;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            white-space: pre-wrap; /* Ensures long lines break as necessary */
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audit Results</h1>
+    {% if results %}
+        {% for issue in results.issues %}
+            {% set severity_class = 'informational' %}
+            {% if issue.severity_level == 'High' %}
+                {% set severity_class = 'high' %}
+            {% elif issue.severity_level == 'Medium' %}
+                {% set severity_class = 'medium' %}
+            {% elif issue.severity_level == 'Low' %}
+                {% set severity_class = 'low' %}
+            {% endif %}
+            <div class="{{ severity_class }}">
+                <h2>{{ issue.issue_name }}</h2>
+                <p><strong>Severity:</strong> {{ issue.severity_level }}</p>
+                <p><strong>Impact:</strong> {{ issue.impact_of_the_vulnerability }}</p>
+                <p><strong>Vulnerable Code Snippet:</strong></p>
+                <pre>{{ issue.vulnerable_code_snippet }}</pre>
+                <p><strong>Mitigation Solution:</strong> {{ issue.mitigation_solution }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No results found or an error occurred during processing.</p>
+    {% endif %}
+    <a href="/">Go Back</a>
+</body>
+</html>

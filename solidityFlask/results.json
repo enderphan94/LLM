@@ -1,0 +1,49 @@
+{
+    "status": "Completed",
+    "results": {
+        "issues": [
+            {
+                "issue_name": "Arbitrary ETH Send",
+                "severity_level": "High",
+                "impact_of_the_vulnerability": "Allows sending ETH to arbitrary addresses, potentially allowing attackers to drain funds.",
+                "vulnerable_code_snippet": "(success,None) = _recipient.call{value: _amount}()",
+                "mitigation_solution": "Add checks to ensure _recipient is not a zero address and implement a withdrawal pattern that does not rely on low-level calls."
+            },
+            {
+                "issue_name": "Reentrancy",
+                "severity_level": "High",
+                "impact_of_the_vulnerability": "Allows attackers to re-enter a function and manipulate state variables, potentially leading to unauthorized fund withdrawals.",
+                "vulnerable_code_snippet": "locked = false",
+                "mitigation_solution": "Use the Checks-Effects-Interactions pattern and implement reentrancy guards (e.g., using OpenZeppelin's ReentrancyGuard)."
+            },
+            {
+                "issue_name": "Missing Zero-Check on Recipient",
+                "severity_level": "Low",
+                "impact_of_the_vulnerability": "Sending ETH to a zero address will result in loss of funds.",
+                "vulnerable_code_snippet": "_recipient",
+                "mitigation_solution": "Add a check to ensure _recipient is not a zero address before making the call."
+            },
+            {
+                "issue_name": "Use of Low-Level Call",
+                "severity_level": "Informational",
+                "impact_of_the_vulnerability": "Using low-level calls can lead to unexpected behavior if not handled correctly.",
+                "vulnerable_code_snippet": "(success,None) = _recipient.call{value: _amount}()",
+                "mitigation_solution": "Consider using safer alternatives like `transfer` or `send`, or ensure the calling contract handles failures gracefully."
+            },
+            {
+                "issue_name": "Solidity Version Known Issues",
+                "severity_level": "Informational",
+                "impact_of_the_vulnerability": "Version constraint ^0.8.0 contains known severe issues.",
+                "vulnerable_code_snippet": "^0.8.0",
+                "mitigation_solution": "Upgrade to a more recent version of Solidity that addresses these issues."
+            },
+            {
+                "issue_name": "Naming Convention Violation",
+                "severity_level": "Informational",
+                "impact_of_the_vulnerability": "Contract and variable names do not follow established naming conventions.",
+                "vulnerable_code_snippet": "contract mock",
+                "mitigation_solution": "Rename contracts and variables to follow the CamelCase convention for contracts and mixedCase for variables."
+            }
+        ]
+    }
+}

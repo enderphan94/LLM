@@ -1,0 +1,22 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Contract Audit</title>
+</head>
+<body>
+    <h1>Upload Smart Contracts for Auditing</h1>
+    <form id="uploadForm" method="POST" action="/upload" enctype="multipart/form-data">
+        <label for="main_contract">Main Contract Filename:</label>
+        <input type="text" id="main_contract" name="main_contract" required>
+        <br><br>
+        <label for="file">Upload Solidity Files:</label>
+        <input type="file" id="file" name="file" multiple required>
+        <br><br>
+        <button type="submit">Upload and Audit</button>
+    </form>
+</body>
+</html>
